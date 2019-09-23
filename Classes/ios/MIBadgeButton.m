@@ -27,7 +27,7 @@
 
 #pragma mark - Setters
 
-- (void) setBadgeString:(NSString *)badgeString
+- (void)setBadgeString:(NSString *)badgeString
 {
     _badgeString = badgeString;
     [self setupBadgeViewWithString:badgeString];
@@ -50,7 +50,7 @@
 
 #pragma mark - Initializers
 
-- (id) init
+- (id)init
 {
     if(self == [super init]) {
         [self setupBadgeViewWithString:nil];
@@ -58,7 +58,7 @@
     return self;
 }
 
-- (id) initWithCoder:(NSCoder *)aDecoder
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
     if(self == [super initWithCoder:aDecoder]) {
         [self setupBadgeViewWithString:nil];
@@ -66,7 +66,7 @@
     return self;
 }
 
-- (id) initWithFrame:(CGRect) frame withBadgeString:(NSString *)string
+- (id)initWithFrame:(CGRect) frame withBadgeString:(NSString *)string
 {
     if (self == [super initWithFrame:frame]) {
         [self setupBadgeViewWithString:string];
@@ -74,7 +74,7 @@
     return self;
 }
 
-- (id) initWithFrame:(CGRect) frame withBadgeString:(NSString *)string badgeInsets:(UIEdgeInsets)badgeInsets
+- (id)initWithFrame:(CGRect) frame withBadgeString:(NSString *)string badgeInsets:(UIEdgeInsets)badgeInsets
 {
     if (self == [super initWithFrame:frame]) {
         self.badgeEdgeInsets = badgeInsets;
@@ -85,7 +85,7 @@
     return self;
 }
 
-- (void) setupBadgeViewWithString:(NSString *)string
+- (void)setupBadgeViewWithString:(NSString *)string
 {
     if(!badgeLabel) {
         if(IS_OS_7_OR_LATER)
@@ -96,14 +96,15 @@
     [badgeLabel setClipsToBounds:YES];
     [badgeLabel setText:string];
     self.badgeTextColor = [UIColor whiteColor];
-    [badgeLabel setFont:[UIFont systemFontOfSize:13]];
+    [badgeLabel setFont:[UIFont systemFontOfSize:10]];
     CGSize badgeSize = [badgeLabel sizeThatFits:CGSizeMake(320, FLT_MAX)];
-    badgeSize.width = badgeSize.width < 20 ? 25 : badgeSize.width + 5;
+    badgeSize.width = badgeSize.width < 14 ? 14 : badgeSize.width + 5;
 
     int vertical = self.badgeEdgeInsets.top - self.badgeEdgeInsets.bottom;
     int horizontal = self.badgeEdgeInsets.left - self.badgeEdgeInsets.right;
     
-    [badgeLabel setFrame:CGRectMake(self.bounds.size.width - 10 + horizontal, -(badgeSize.height / 2) - 10 + vertical, badgeSize.width,  badgeSize.width > 25 ? badgeSize.height : badgeSize.width)];
+//    [badgeLabel setFrame:CGRectMake(self.bounds.size.width - 10 + horizontal, -(badgeSize.height / 2) - 5 + vertical, badgeSize.width,  badgeSize.width > 25 ? badgeSize.height : badgeSize.width)];
+    [badgeLabel setFrame:CGRectMake(self.bounds.size.width - 10 + horizontal, vertical, badgeSize.width,  badgeSize.width > 25 ? badgeSize.height : badgeSize.width)];
     [self setupBadgeStyle];
     [self addSubview:badgeLabel];
     
@@ -114,7 +115,7 @@
     }
 }
 
-- (void) setupBadgeStyle
+- (void)setupBadgeStyle
 {
     [badgeLabel setTextAlignment:NSTextAlignmentCenter];
     [badgeLabel setBackgroundColor:self.badgeBackgroundColor];
